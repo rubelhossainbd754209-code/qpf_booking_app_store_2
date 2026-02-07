@@ -28,8 +28,55 @@ export async function OPTIONS() {
 
 export async function GET() {
     try {
-        // For Store 3, we don't fetch from Supabase (it's legacy)
-        // We only fetch from local data as fallback
+        // Import Supabase client
+        const { getSupabaseClient, isSupabaseConfigured } = await import('@/lib/supabase');
+
+        // Try to fetch from Supabase first
+        if (isSupabaseConfigured()) {
+            const supabase = getSupabaseClient();
+            if (supabase) {
+                try {
+                    console.log('Fetching bookings from Supabase...');
+
+                    const { data, error } = await supabase
+                        .from('repair_requests')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (error) {
+                        console.error('❌ Supabase error:', error);
+                    } else if (data) {
+                        console.log('✅ Successfully fetched from Supabase:', data.length, 'records');
+
+                        // Transform Supabase response to frontend format
+                        const transformedRequests = data.map((request: any) => ({
+                            id: request.id,
+                            customer: request.customer_name,
+                            brand: request.brand,
+                            deviceType: request.device_type,
+                            model: request.model,
+                            message: request.message,
+                            name: request.customer_name,
+                            phone: request.phone,
+                            email: request.email,
+                            address: request.address,
+                            status: request.status || 'New',
+                            createdAt: request.created_at,
+                            uniqueKey: `${request.id}-${request.created_at}`,
+                        }));
+
+                        return corsResponse({ requests: transformedRequests });
+                    }
+                } catch (supabaseError) {
+                    console.error('❌ Failed to fetch from Supabase:', supabaseError);
+                }
+            }
+        } else {
+            console.warn('⚠️ Supabase not configured');
+        }
+
+        // Fallback to local data if Supabase fails
+        console.log('Using local data fallback');
         const requests = getRepairRequests();
 
         // Transform data to match frontend expectations

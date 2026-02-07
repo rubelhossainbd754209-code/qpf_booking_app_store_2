@@ -187,45 +187,8 @@ export interface RepairRequest {
   created_at: string;
 }
 
-// Sample repair requests for demo
-let repairRequestsData: RepairRequest[] = [
-  {
-    id: 'REQ-001',
-    customer_name: 'John Smith',
-    phone: '(555) 123-4567',
-    email: 'john@example.com',
-    address: '123 Main St, New York, NY',
-    brand: 'Apple',
-    device_type: 'iPhone',
-    model: 'iPhone 15 Pro',
-    message: 'Screen is cracked and battery drains quickly',
-    status: 'New',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString() // 2 hours ago
-  },
-  {
-    id: 'REQ-002',
-    customer_name: 'Sarah Johnson',
-    phone: '(555) 987-6543',
-    email: 'sarah@example.com',
-    brand: 'Samsung',
-    device_type: 'Galaxy S Series',
-    model: 'Galaxy S24 Ultra',
-    message: 'Not charging properly',
-    status: 'In Progress',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString() // 1 day ago
-  },
-  {
-    id: 'REQ-003',
-    customer_name: 'Mike Brown',
-    phone: '(555) 456-7890',
-    brand: 'Google',
-    device_type: 'Pixel Phone',
-    model: 'Pixel 8 Pro',
-    message: 'Camera not working',
-    status: 'Completed',
-    created_at: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString() // 2 days ago
-  }
-];
+// Repair requests data - starts empty, populated via API
+let repairRequestsData: RepairRequest[] = [];
 
 let requestCounter = 3;
 
