@@ -1,0 +1,9 @@
+{
+  "supabaseUrl": "https://uwqqkwwstgrbbbrpacnc.supabase.co",
+  "supabaseAnonKey": "sb_publishable__d1ZHdUcvJLp38tvImjFzw_dMEEI_VE",
+  "laravelApiUrl": "https://store3.quickphonefix.mandrillcart.com/api",
+  "laravelApiKey": "qpx-laravel-integration-2026",
+  "storeId": "store-2",
+  "storeName": "Quick Phone Fix N More - Germantown",
+  "storeCode": "QPF-S2"
+}
